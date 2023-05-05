@@ -1,3 +1,4 @@
+i found this on https://app.bountysource.com/issues/119784617-bounty-stop-boinc-from-dying-when-multiple-x-sessions-open and i decided to give it a try yk
 from easy to hard i think idk i gave up on linux when i was 13 i think
 
 you can restart the Xorg server and launch the boinc_client specifying the display number of the Xorg instance you want to connect to:
@@ -28,7 +29,7 @@ export DISPLAY=:99
 boinc_client --daemon --allow_remote_gui_rpc
 //////////////////////////////////////////////////////////////////////
 
-you start a virtual display server on display :99 with a screen size of 1024x768x24 then the display environment variable points to the virtual display server and then starts the client in daemon mode with remote GUI RPC allowed
+you start a virtual display server on display :99 with a screen size of 1024x768x24 then the display environment variable points to the virtual display server(or something like that i dont remember) and then starts the client in daemon mode with remote GUI RPC allowed
 i mean all this can be changed to the size or monitors of the user likes
 
 
@@ -98,3 +99,4 @@ EndSection
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ayo even tho im tired of linux if something of this works i want my money lol xd
+i would prefer some steam card but whatever is coll
