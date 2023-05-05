@@ -1,0 +1,100 @@
+from easy to hard i think idk i gave up on linux when i was 13 i think
+
+you can restart the Xorg server and launch the boinc_client specifying the display number of the Xorg instance you want to connect to:
+///////////////////////////////////////////////////////////
+DISPLAY=:0.0 boinc_client
+/////////////////////////////////////////////////////
+this will launch the client and connect it to the Xorg instance running on display 0.0
+if you want another display or instance or whatever yous change it
+
+now using xvfb or others virtual framebuffers can decouple the client from the Xorg server and remove the dependency on an active X display
+
+install xvfb
+start it xvfb-run command
+set the DISPLAY environment variable to point to the virtual display server
+run the client
+like this:
+/////////////////////////////////////////////////////////////////
+# Install xvfb
+apt-get install -y xvfb //i think it goes like this dk
+
+# Start a virtual display server and put the size
+Xvfb :99 -screen 0 1024x768x24 &
+
+# Set the DISPLAY environment variable
+export DISPLAY=:99
+
+# Run the BOINC client
+boinc_client --daemon --allow_remote_gui_rpc
+//////////////////////////////////////////////////////////////////////
+
+you start a virtual display server on display :99 with a screen size of 1024x768x24 then the display environment variable points to the virtual display server and then starts the client in daemon mode with remote GUI RPC allowed
+i mean all this can be changed to the size or monitors of the user likes
+
+
+also the Xorg server can be changed to allow multiple instances by modifying the "ServerLayout" section
+/////////////////////////////////////////////////////////////////////////////////////////
+Section "ServerLayout"
+    Identifier     "Layout0"
+    Screen      0  "Screen0" 0 0
+    InputDevice    "Keyboard0" "CoreKeyboard"
+    InputDevice    "Mouse0" "CorePointer"
+EndSection
+
+Section "ServerLayout"
+    Identifier     "Layout1"
+    Screen      0  "Screen1" 0 0
+    InputDevice    "Keyboard1" "CoreKeyboard"
+    InputDevice    "Mouse1" "CorePointer"
+EndSection
+
+Section "Screen"
+    Identifier     "Screen0"
+    Device         "Card0"
+    Monitor        "Monitor0"
+    DefaultDepth    24
+    SubSection     "Display"
+        Depth       24
+        Virtual     1920 1080
+    EndSubSection
+EndSection
+
+Section "Screen"
+    Identifier     "Screen1"
+    Device         "Card1"
+    Monitor        "Monitor1"
+    DefaultDepth    24
+    SubSection     "Display"
+        Depth       24
+        Virtual     1920 1080
+    EndSubSection
+EndSection
+
+Section "InputDevice"
+    Identifier     "Keyboard0"
+    Driver         "kbd"
+    Option         "XkbLayout" "us"
+EndSection
+
+Section "InputDevice"
+    Identifier     "Mouse0"
+    Driver         "mouse"
+    Option         "Protocol" "auto"
+    Option         "Device" "/dev/input/mice"
+EndSection
+
+Section "InputDevice"
+    Identifier     "Keyboard1"
+    Driver         "kbd"
+    Option         "XkbLayout" "us"
+EndSection
+
+Section "InputDevice"
+    Identifier     "Mouse1"
+    Driver         "mouse"
+    Option         "Protocol" "auto"
+    Option         "Device" "/dev/input/mice"
+EndSection
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+ayo even tho im tired of linux if something of this works i want my money lol xd
